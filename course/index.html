@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Open Up</title>
+
+		<meta name="description" content="Open Up : Lesson 3 LDAP servers">
+		<meta name="author" content="Tellier Benoit">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+	
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+
+<section>
+<h1>Open-up</h1>
+
+<h2>6 User, groups, rights and ACL</h2>
+
+<img data-src="large.png">
+
+<p>Speaker : <a>Benoit Tellier</a></p>
+
+</section>
+
+
+
+
+
+
+
+
+
+<section>
+<h2>Why this presentation ?</h2>
+
+<ul>
+<li>Manage users</li>
+<li>Execute as roots</li>
+<li>UNIX rights</li>
+<li>UNIX groups</li>
+<li>UNIX ACLs</li>
+</ul>
+</section>
+
+
+
+
+
+
+
+<section>
+
+  <section><h1>Managing users</h1></section>
+
+  <section>
+    <h2>User ID</h2>
+    <ul>
+      <li>Kernel identifier for users</li>
+      <li>GID : Group ID</li>
+      <li>/etc/passwd for username ↔ UID mapping</li>
+      <li>id command gives your UID and GID</li>
+    </ul>
+  </section>
+  <section>
+    <pre><code>$ id
+uid=1000(benwa) gid=1000(benwa) groupes=1000(benwa),0(root),3(sys),5(tty),
+6(disk),7(lp),10(wheel),14(uucp),26(proc),54(lock),81(dbus),90(network),
+91(video),92(audio),93(optical),94(floppy),96(scanner),98(power),120(gdm),
+190(systemd-journal),995(docker)
+</code></pre>
+  </section>
+  <section>
+    <pre><code>$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/zsh
+bin:x:1:1:bin:/bin:/usr/bin/nologin
+daemon:x:2:2:daemon:/:/usr/bin/nologin
+mail:x:8:12:mail:/var/spool/mail:/usr/bin/nologin
+ftp:x:14:11:ftp:/srv/ftp:/usr/bin/nologin
+http:x:33:33:http:/srv/http:/usr/bin/nologin
+uuidd:x:68:68:uuidd:/:/usr/bin/nologin
+dbus:x:81:81:dbus:/:/usr/bin/nologin
+nobody:x:99:99:nobody:/:/usr/bin/nologin
+</code></pre> 
+  </section>
+  <section>
+    <h2>Adding users</h2>
+    <ul>
+      <li>useradd pseudo</li>
+      <li>useradd -h /home/pseudo</li>
+      <li>useradd -s /usr/bin/nologin</li>
+      <li>adduser</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Reset password</h2>
+    <ul>
+      <li>passwd</li>
+      <li>As root : passwd pseudo</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Delete a user</h2>
+    <ul>
+      <li>deluser pseudo</li>
+      <li>deluser -r pseudo</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Managing groups</h2>
+    <ul>
+      <li>groupadd title</li>
+      <li>Switching your group : newgrp title // chgrp title</li>
+      <li>useradd -s /usr/bin/nologin</li>
+      <li>Adding user in a group : usermod -G group user</li>
+      <li>Deleting a group : groupdel title</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Debian System groups</h2>
+    <ul>
+      <li>rmda (Remote directory access)</li>
+      <li>scanner</li>
+      <li>audio</li>
+      <li>video</li>
+      <li>disk (raw access to disk)</li>
+      <li>lp (printers)</li>
+      <li><a href="https://wiki.debian.org/SystemGroups">...</a></li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <section><h1>Execute as root</h1></section>
+  <section>
+    <h2>Changing of user</h2>
+    <ul>
+      <li>su pseudo</li>
+      <li>No password asked if you are root</li>
+      <li>su</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Execute as root</h2>
+    <ul>
+      <li>sudo `command`</li>
+      <li>Asks your password</li>
+      <li>Needs an entry in /etc/sudoers</li>
+    </ul>
+  </section>
+  <section>
+    <pre><code>$ cat /etc/sudoers
+root    ALL=(ALL:ALL) ALL
+cjones  ALL=(ALL:ALL) ALL
+</code></pre> 
+  </section>
+</section>
+
+<section>
+  <section>UNIX rights</section>
+  <section>
+    <h2>Available rights</h2>
+    <ul>
+      <li>read</li>
+      <li>write</li>
+      <li>execute</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Setting rights on a file</h2>
+    <ul>
+      <li>chmod command</li>
+      <li>u=user, g=group, o=other, a=all</li>
+      <li>r=read, w=write, w=execute</li>
+      <li>+ / - for adding / removing right</li>
+    </ul>
+  </section>
+  <section>
+    <pre><code>$ chmod u+x script.sh
+$ chmod o-w private.txt
+$ chmod u+x,o-x private.txt
+$ chmod +x script.sh
+$ chmod a+x script.sh
+$ chmod --reference=file1 file2
+$ chmod +w directory-name/
+</code></pre> 
+  </section>
+  <section>
+    <pre><code>$ ls -l
+drwxr-xr-x 12 benwa benwa  4096 11 nov.  13:57 mpt/
+-rw-r--r--  1 benwa benwa 61556 11 nov.  14:40 pom.xml
+</code></pre> 
+  </section>
+
+  <section>
+    <h2>Setting rights on a file</h2>
+    <ul>
+      <li>chmod command</li>
+      <li>user then group then others</li>
+      <li>4=read, 2=write, 1=execute</li>
+    </ul>
+  </section>
+  <section>
+    <pre><code>$ chmod u+x script.sh
+$ chmod 700 private.txt
+$ chmod 755 script.sh
+</code></pre> 
+</section>
+  <section>
+    <h2>Giving files</h2>
+    <pre><code>$ chown benwa script.sh
+$ chown -R benwa:benwa *
+</code></pre>
+</section> 
+  <section>
+    <h2>Default rights</h2>
+    <pre><code>$ umask -S
+u=rwx,g=rx,o=rx
+# /!\ syntax is the oposit of chmod when setting mask
+$ umask 077
+$ umask -S 
+u=rwx,g=,o=
+</code></pre>
+</section> 
+</section>
+
+<section>
+  <section><h1>ACLs</h1></section>
+  <section>
+    <h2>Enabling ACLs</h2>
+    <p>apt-get install acl</p>
+    <p>mount -o remount,acl /</p>
+  </section>
+  <section>
+    <pre><code>$ getfacl testfile
+$ setfacl -m group:junior-sys-admins:4 /var/log/apache2/error.log
+$ setfacl -m user:evilcraig:0 my_notes.txt
+$ setfacl -b -R my_notes.txt
+</code></pre> 
+</section>
+</section>
+
+<section>
+	<h1>Questions ?</h1>
+</section>
+
+
+
+
+
+
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				slideNumber: true,
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+                                
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

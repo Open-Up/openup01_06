@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Open Up</title>
+
+		<meta name="description" content="Open Up : Lesson 3 LDAP servers">
+		<meta name="author" content="Tellier Benoit">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+	
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+
+<section>
+<h1>Open-up</h1>
+
+<h2>System administration</h2>
+
+<img data-src="large.png">
+
+<p>Speaker : <a>Benoit Tellier</a></p>
+
+<p>
+Retrieve this presentation online : <a>https://rawgit.com/chibenwa/openup02_01/master/presentation/index.html</a><br/>
+And on <a href="https://github.com/chibenwa/openup02_01/">GitHub</a>
+</p>
+</section>
+
+
+
+
+
+
+
+
+
+<section>
+<h2>Why this presentation ?</h2>
+
+<ul>
+<li>Who am I ?</li>
+<li>Who you are !</li>
+<li>This semester</li>
+</ul>
+</section>
+
+
+
+
+
+
+
+<section>
+
+<section>
+<h1>Who am I ?</h1>
+</section>
+
+<section>
+<h2>Me</h2>
+<p>
+<div class="fragment"><b><a>Age</a></b> : 24<br/></div>
+<div class="fragment"><b><a>From</a></b> : Paris, France<br/></div>
+<div class="fragment"><b><a>Job</a></b> : Distributed application programmer <br/></div>
+<div class="fragment"><b><a>Spoken languages</a></b> : French, English, (~German), soon vietnamese<br/></div>
+<div class="fragment">In Vietnam since february 2016<br/></div>
+<div class="fragment"><ul><b><a>Hobbies</a></b> :
+<li>Climbing</li>
+<li>Play board games</li>
+<li>Coding</li>
+</ul></div>
+<div class="fragment"><b><a>Prefered web site</a></b> : <ul>
+ <li><a href="http://highscalability.com/">highscalability.com</a></li>
+ <li><a href="https://blog.acolyer.org/">the morning paper</a></li>
+</div>
+</p>
+</section>
+
+<section>
+<h2>System administrator at MiNET</h2>
+<img data-src="index.jpe">
+<p class="fragment">ISP for ~700 student</p>
+<p class="fragment">Relying on Free technology</p>
+<p class="fragment">Infrastructure and system administration</p>
+</section>
+
+<section>
+<h2>MiNET's network</h2>
+<img data-src="weathermap.png">
+</section>
+
+<section>
+<h2>What I did at MiNET</h2>
+<ul>
+<li class="fragment">Administrative work</li>
+<li class="fragment">Storage for virtual machine disks with <b>ZFS</b></li>
+<li class="fragment">OpenStack infrastructure deployment</li>
+<li class="fragment">Monitoring improvement with <b>Zabbix</b></li>
+<li class="fragment">Design hosting system for users website</li>
+<li class="fragment">Supervise FireWall upgrade</li>
+<li class="fragment">Etc...</li>
+</ul>
+</section>
+
+<section>
+  <h2>Linagora employee</h2>
+    <p class="fragment">Until 2018</p>
+    <p class="fragment">James developer</p>
+    <p class="fragment">OpenUp speaker</p>
+    <p class="fragment">Open source community in Hanoï</p>
+</section>
+
+<section>
+<h2>Cyrus' problem</h2>
+<p class="fragment">A hard to understand code</p>
+<span class="fragment">
+<img data-src="cyrus_sharding.png"><br/>
+<img data-src="cyrus_replica.png">
+<p class="fragment">Sharding, passive replication</p>
+</span>
+<p class="fragment">Maildir</p>
+</section>
+
+<section>
+<h2>James</h2>
+<p>Free Mail server from the Apache Foundation<br/>
+<img data-src="james-logo.gif"></p>
+<p class="fragment">Mail server chosen for OpenPaas</p>
+<p class="fragment">Committer for ~ 1 year</p>
+</section>
+
+<section>
+<h2>JAMES internals</h2>
+<span class="fragment">
+<img data-src="internal.png">
+</span>
+</section>
+
+<section>
+<h2>James distributed architecture</h2>
+<img data-src="infra.png">
+</section>
+
+<section>
+<h2>James Buzz Worlds</h2>
+<ul>
+<li class="fragment">Agile, SCRUM, CI (git, github, jenkins, docker)</li>
+<li class="fragment">Java 8</li>
+<li class="fragment">Cassandra, ElasticSearch, Kafka</li>
+</ul>
+</section>
+
+</section>
+
+
+
+
+
+
+
+
+<section>
+<section>
+<h1>About you !</h1>
+</section>
+
+<section>
+<h2>Professional project</h2>
+<ul>
+<li class="fragment">Who wants to be a developer ?</li>
+<li class="fragment">Who wants to be a DevOps ?</li>
+<li class="fragment">Who wants to be a SysAdmin ?</li>
+<li class="fragment">Who have other projects ?</li>
+</ul>
+</section>
+
+<section>
+<h2>About you (again)</h2>
+<ul>
+<li class="fragment">Who use LiNUX ?</li>
+<li class="fragment">Who often use the command line ?</li>
+<li class="fragment">Who already deployed stuff on a server ?</li>
+<li class="fragment">Who already deployed OpenSource software on a server ?</li>
+<li class="fragment">Was it a "public" server ?</li>
+<li class="fragment">Who created and administrated his own website ?</li>
+<li class="fragment">Who already handled infrastructure projects ?</li>
+<li class="fragment">Who already used a Cloud ? Which one ?</li>
+</ul>
+</section>
+
+<section>
+<h2>About you (again)</h2>
+<ul>
+<li class="fragment">Do you have a Github account ?</li>
+<li class="fragment">Who already contributed to OpenSource projects ?</li>
+<li class="fragment">Do you write tests ?</li>
+<li class="fragment">Do you use ever used a CI tool ?</li>
+<li class="fragment">Do you ever practiced agile development ?</li>
+</ul>
+</section>
+
+<section>
+<h2>Expectations...</h2>
+</section>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<section>
+<section>
+<h1>The upcoming semester</h1>
+</section>
+
+<section>
+<b>By the end of the lessons you should be able to :</b>
+<ul>
+<li class="fragment">Be autonomous with the command line</li>
+<li class="fragment">Know basic linux programs</li>
+<li class="fragment">Configure a LiNUX computer</li>
+<li class="fragment">Write bash scripts</li>
+</ul>
+</section>
+
+<section>
+<h2>Why command line matters ?</h2>
+<ul>
+<li class="fragment">Combining simple commands is powerfull !</li>
+<li class="fragment">Screens are expensive...</li>
+<li class="fragment">Scripting and easy automation</li>
+</ul>
+</section>
+
+<section>
+<h2>Time management</h2>
+<ul>
+<li>Lecture: 13 hours</li>
+<li>Mini-project: 40 hours</li>
+<li>Practice: 26 hours</li>
+<li>Exams : 6 hours</li>
+</ul>
+</section>
+
+<section>
+<ul>
+  <li class="fragment">Installing Linux</li>
+  <li class="fragment">Installing Linux + packet management</li>
+  <li class="fragment">UNIX commands</li>
+  <li class="fragment">UNIX commands bis</li>
+  <li class="fragment">Bash scripts</li>
+  <li class="fragment">User, groups, rights and ACL</li>
+  <li class="fragment">File system</li>
+  <li class="fragment">Mid term exam</li>
+  <li class="fragment">Job scheduling</li>
+  <li class="fragment">BTRFs</li>
+  <li class="fragment">Network configuration</li>
+  <li class="fragment">GPG and key signing party</li>
+  <li class="fragment">Your own cryptographic software!</li>
+  <li class="fragment">Git</li>
+</ul>
+</section>
+
+<section>
+<h2>Evaluating your work</h2>
+<ul>
+<li>Class attendance  25%</li>
+<li>Mid-term exam 25%</li>
+<li>Final exam 50%</li>
+</ul>
+</section>
+
+</section>
+
+
+
+
+
+
+
+
+
+<section>
+	<h1>Questions ?</h1>
+</section>
+
+
+
+
+
+
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				slideNumber: true,
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+                                
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
