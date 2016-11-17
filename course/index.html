@@ -115,8 +115,8 @@ nobody:x:99:99:nobody:/:/usr/bin/nologin
     <h2>Adding users</h2>
     <ul>
       <li>useradd pseudo</li>
-      <li>useradd -h /home/pseudo</li>
-      <li>useradd -s /usr/bin/nologin</li>
+      <li>useradd -h /home/pseudo pseudo</li>
+      <li>useradd -s /usr/bin/nologin pseudo</li>
       <li>adduser</li>
     </ul>
   </section>
@@ -229,7 +229,7 @@ drwxr-xr-x 12 benwa benwa  4096 11 nov.  13:57 mpt/
     </ul>
   </section>
   <section>
-    <pre><code>$ chmod u+x script.sh
+    <pre><code>
 $ chmod 700 private.txt
 $ chmod 755 script.sh
 </code></pre> 
